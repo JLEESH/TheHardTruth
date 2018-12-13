@@ -1,4 +1,54 @@
-# TheHardTruth
+# TheHardTruth v1.1
+TheHardTruth calculates some statistics based on solve times input by the user.
+Currently, the following information (or more) is displayed: 
+- Sample Mean
+- Sample Variance
+- Sample Standard Deviation
+- Standard Error of Mean
+- Confidence Interval (at 95% confidence level)
+- Predicton Interval (at 95% predictive confidence level)
+
+The following change depending on user input:
+- The *t* Value
+- The *p* Value
+- Custom Confidence Interval
+- Custom Prediction Interval
+
+# The Truth to Mend All Truths
+This program was made to ~~end~~ provide another view point on the discussion surrounding cubing averages, namely what someone truly averages. Measures cubers typically use such as Mo3 (Mean of 3), Ao5 (Average of 5), Ao12 (what Ao stands for should be obvious by now), Ao50, Ao100 or even Ao1000, where the AoX, X being a certain number of solves, is computed by taking away the best and the worst solve (assuming one considers a faster solve a better one and a slower solve a worse one) in the session and deriving the mean of the remaining times after doing so, do not have a strong basis in statistics. In fact, different definitions exist for the higher numbers, such as taking away the fastest and the slowest 10% of the solves for longer (in terms of the number of solves) sessions.
+
+Therefore, this program attempts to compute some numbers based not on arbitrary definitions coined by the speedcubing community but through statistics, in hopes of estimating an actual mean rather than misappropriating what should be applied in accomplishing a fun and/or challenging goal such as getting a pure sub-10 (meaning no solves taking 10s or longer) Ao1000 by using it as a measure of someone's average. Of course, assumptions and estimations are made: the program assumes that cubing times follow a normal distribution and uses Student's t-distribution for many of its calculations, when in fact time distributions in speedcubing are more likely to be skewed, since solving 5s faster than someone's average is typically less likely than solving 5s slower, given how mistakes can increase times drastically compared to the rare and occasionally unimpactful skips (literally the skipping of certain steps in solving a cube, the details of which depend on the solving method one uses) and lucky cases. However, as the t-distribution is robust to the normality assumption, in addition to the fact the distribution of cubing times are approximately normal in the first place, estimations should be a relatively decent.
+
+# How It Was Made
+Java SE 8.0
+
+Apache Commons Math (under the Apache License, Version 2.0)
+
+*That's all folks!*
+
+# How to Run the Program
+Under most conditions, the following should suffice: 
+
+On Windows, simply double-click 'TheHardTruth.jar' in the 'dist' folder.
+
+On Linux, run 'java -jar TheHardTruth.jar' in the 'dist' folder.
+
+Otherwise, ~~ugh luck~~ please look up how to run jar files on your device.
+
+# Potential Future Functions and Unlikely Future Functions
+~~blatantly copied from the old README, then edited.~~
+
+Features yet to be implemented (since it's a prototype): 
+
+- Power of the test? (You can just test another specific alternative hypothesis with the current version)
+- Testing against hallmark values such as sub-10, sub-12, sub-15, etc. automatically. (I know, other values like sub-20 exist. Just listing examples. But I thought it would be too much clutter. And JLabels.)
+- Actually using the Solve class (and other classes too) to its full extent. (Might be useful for calculating DNF rates vs times for BLD (blindfolded solving) and the like)
+- (Random state) scrambles (for multiple events, but this program was not meant to be a full-fledged timer).
+- Sorting, visulisation. (Doesn't make sense to have just sorting without visualisation, so I left it out. I guess I could use JFreeChart for that).
+
+## The Old README.md
+### (v1.0 or v0.1, depending on how you look at it)
+
 Cubes.
 Created with the help of Apache Commons Math.
 Simply run TheHardTruth.jar

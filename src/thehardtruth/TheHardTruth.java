@@ -736,18 +736,5 @@ public final class TheHardTruth extends JFrame {
         //Message.
         errorLabel.setText("Statistics calculated.");
         System.out.println("Statistics calculated.");
-        
-        
-        
-        
-        double[] test = statistics.getConfidenceInterval(0.99);
-        System.out.println(test[0] + " " + test[1]);
-        test = statistics.getConfidenceInterval();
-        System.out.println(test[0] + " " + test[1]);
-        
-        test = statistics.getPredictionInterval(0.99);
-        System.out.println(test[0] + " " + test[1]);
-        test = statistics.getPredictionInterval();
-        System.out.println(test[0] + " " + test[1]);
     }
 }

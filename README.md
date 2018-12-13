@@ -33,7 +33,7 @@ On Windows, simply double-click 'TheHardTruth.jar' in the 'dist' folder.
 
 On Linux, run 'java -jar TheHardTruth.jar' in the 'dist' folder.
 
-Otherwise, ~~ugh luck~~ please look up how to run jar files on your device.
+Otherwise, ~~tough luck~~ please look up how to run jar files on your device.
 
 # Potential Future Functions and Unlikely Future Functions
 ~~blatantly copied from the old README, then edited.~~

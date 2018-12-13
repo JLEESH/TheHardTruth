@@ -66,6 +66,8 @@ public final class TheHardTruth extends JFrame {
     private SolveHandler solveHandler;
     private Statistics statistics;
     private double testTime;
+    private double customConfidenceLevel;
+    private double customPredictiveConfidenceLevel;
     
     private JLabel timeLabel;
     private JLabel errorLabel;
@@ -96,7 +98,14 @@ public final class TheHardTruth extends JFrame {
     private JFormattedTextField testTimeField;
     private JLabel tValueLabel;
     private JLabel pValueLabel;
-        
+    private JLabel confidenceIntervalLabel;
+    private JLabel predictionIntervalLabel;
+    private JLabel customConfidenceLevelLabel;
+    private JFormattedTextField customConfidenceLevelField;
+    private JLabel customPredictiveConfidenceLevelLabel;
+    private JFormattedTextField customPredictiveConfidenceLevelField;
+    private JLabel customConfidenceIntervalLabel;
+    private JLabel customPredictionIntervalLabel;
     
     /**
      * Initialises the frame without displaying it.
@@ -114,6 +123,8 @@ public final class TheHardTruth extends JFrame {
         solveHandler = new SolveHandler();
         statistics = null;
         testTime = 10;
+        customConfidenceLevel = 0.99;
+        customPredictiveConfidenceLevel = 0.99;
         
         timeLabel = new JLabel("Times: ");
         errorLabel = new JLabel("");
@@ -145,6 +156,16 @@ public final class TheHardTruth extends JFrame {
         testTimeField.setText(format.format(testTime));
         tValueLabel = new JLabel("t-value: ");
         pValueLabel = new JLabel("p-value: ");
+        confidenceIntervalLabel = new JLabel("Confidence Interval (95%): ");
+        predictionIntervalLabel = new JLabel("Prediction Interval (95%): ");
+        customConfidenceLevelLabel = new JLabel("Desired level of confidence: ");
+        customConfidenceLevelField = new JFormattedTextField(format);
+        customConfidenceLevelField.setText(format.format(customConfidenceLevel));
+        customPredictiveConfidenceLevelLabel = new JLabel("Desired level of predictive confidence: ");
+        customPredictiveConfidenceLevelField = new JFormattedTextField(format);
+        customPredictiveConfidenceLevelField.setText(format.format(customPredictiveConfidenceLevel));
+        customConfidenceIntervalLabel = new JLabel("Confidence Interval (custom): ");
+        customPredictionIntervalLabel = new JLabel("Prediction Interval (custom): ");
         
         //Setting component properties.
         timeList.setFixedCellHeight(20);
@@ -154,6 +175,8 @@ public final class TheHardTruth extends JFrame {
         testTimeField.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
         timeEditField.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
         timeTakenField.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
+        customPredictiveConfidenceLevelField.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
+        customConfidenceLevelField.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
         
         addTimeButton.setFont(SMALLER_FONT);
         deleteTimeButton.setFont(SMALLER_FONT);
@@ -191,6 +214,14 @@ public final class TheHardTruth extends JFrame {
         add(testTimeField);
         add(tValueLabel);
         add(pValueLabel);
+        add(confidenceIntervalLabel);
+        add(predictionIntervalLabel);
+        add(customConfidenceLevelLabel);
+        add(customConfidenceLevelField);
+        add(customPredictiveConfidenceLevelLabel);
+        add(customPredictiveConfidenceLevelField);
+        add(customConfidenceIntervalLabel);
+        add(customPredictionIntervalLabel);
         
         //Setting properties of the main frame.
         setTitle(FRAME_TITLE);
@@ -292,7 +323,7 @@ public final class TheHardTruth extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, timeMeasureLabel, 5, SpringLayout.SOUTH, timeTakenLabel);
         
         //Layout constraints for statistics components.
-        layout.putConstraint(SpringLayout.NORTH, sampleSizeLabel, 50, SpringLayout.SOUTH, addTimeButton);
+        layout.putConstraint(SpringLayout.NORTH, sampleSizeLabel, 30, SpringLayout.SOUTH, addTimeButton);
         layout.putConstraint(SpringLayout.WEST, sampleSizeLabel, 5, SpringLayout.EAST, timeScrollPane);
         layout.putConstraint(SpringLayout.NORTH, sampleMeanLabel, 5, SpringLayout.SOUTH, sampleSizeLabel);
         layout.putConstraint(SpringLayout.WEST, sampleMeanLabel, 5, SpringLayout.EAST, timeScrollPane);
@@ -310,6 +341,32 @@ public final class TheHardTruth extends JFrame {
         layout.putConstraint(SpringLayout.WEST, tValueLabel, 5, SpringLayout.EAST, timeScrollPane);
         layout.putConstraint(SpringLayout.NORTH, pValueLabel, 5, SpringLayout.SOUTH, tValueLabel);
         layout.putConstraint(SpringLayout.WEST, pValueLabel, 5, SpringLayout.EAST, timeScrollPane);
+        
+        //Layout constraints for interval components.
+        layout.putConstraint(SpringLayout.NORTH, confidenceIntervalLabel, 30, SpringLayout.SOUTH, pValueLabel);
+        layout.putConstraint(SpringLayout.WEST, confidenceIntervalLabel, 5, SpringLayout.EAST, timeScrollPane);
+        
+        layout.putConstraint(SpringLayout.NORTH, predictionIntervalLabel, 5, SpringLayout.SOUTH, confidenceIntervalLabel);
+        layout.putConstraint(SpringLayout.WEST, predictionIntervalLabel, 5, SpringLayout.EAST, timeScrollPane);
+        
+        layout.putConstraint(SpringLayout.NORTH, customConfidenceLevelLabel, 5, SpringLayout.SOUTH, predictionIntervalLabel);
+        layout.putConstraint(SpringLayout.WEST, customConfidenceLevelLabel, 5, SpringLayout.EAST, timeScrollPane);
+        
+        layout.putConstraint(SpringLayout.NORTH, customConfidenceLevelField, 3, SpringLayout.SOUTH, predictionIntervalLabel);
+        layout.putConstraint(SpringLayout.WEST, customConfidenceLevelField, 3, SpringLayout.EAST, customConfidenceLevelLabel);
+        
+        layout.putConstraint(SpringLayout.NORTH, customPredictiveConfidenceLevelLabel, 5, SpringLayout.SOUTH, customConfidenceLevelLabel);
+        layout.putConstraint(SpringLayout.WEST, customPredictiveConfidenceLevelLabel, 5, SpringLayout.EAST, timeScrollPane);
+        
+        layout.putConstraint(SpringLayout.NORTH, customPredictiveConfidenceLevelField, 3, SpringLayout.SOUTH, customConfidenceLevelLabel);
+        layout.putConstraint(SpringLayout.WEST, customPredictiveConfidenceLevelField, 3, SpringLayout.EAST, customPredictiveConfidenceLevelLabel);
+        
+        layout.putConstraint(SpringLayout.NORTH, customConfidenceIntervalLabel, 5, SpringLayout.SOUTH, customPredictiveConfidenceLevelLabel);
+        layout.putConstraint(SpringLayout.WEST, customConfidenceIntervalLabel, 5, SpringLayout.EAST, timeScrollPane);
+        
+        layout.putConstraint(SpringLayout.NORTH, customPredictionIntervalLabel, 5, SpringLayout.SOUTH, customConfidenceIntervalLabel);
+        layout.putConstraint(SpringLayout.WEST, customPredictionIntervalLabel, 5, SpringLayout.EAST, timeScrollPane);
+        
         
         //Adding EventListeners.
         loadTimesButton.addActionListener((ActionEvent evt) -> {
@@ -651,7 +708,46 @@ public final class TheHardTruth extends JFrame {
         tValueLabel.setText("t-value: " + longerFormat.format(statistics.getTValue(testTime)));
         pValueLabel.setText("p-value: " + longerFormat.format(statistics.getPValue(testTime)));
         
+        //Update intervals.
+        double[] confidenceIntervalArray = statistics.getConfidenceInterval();
+        confidenceIntervalLabel.setText("Confidence Interval (95%): " + format.format(confidenceIntervalArray[0]) + " - " + format.format(confidenceIntervalArray[1]));
+        double[] predictionIntervalArray = statistics.getPredictionInterval();
+        predictionIntervalLabel.setText("Prediction Interval (95%): " + format.format(predictionIntervalArray[0]) + " - " + format.format(predictionIntervalArray[1]));
+        
+        try {
+            customConfidenceLevel = Double.parseDouble(customConfidenceLevelField.getText());
+        } catch (NumberFormatException | NullPointerException e) {
+            errorLabel.setText("Please enter a valid confidence level.");
+            System.out.println("Please enter a valid confidence level.");
+            return;
+        }
+        try {
+            customPredictiveConfidenceLevel = Double.parseDouble(customPredictiveConfidenceLevelField.getText());
+        } catch (NumberFormatException | NullPointerException e) {
+            errorLabel.setText("Please enter a valid predictive confidence level.");
+            System.out.println("Please enter a valid predictive confidence level.");
+            return;
+        }
+        double[] customConfidenceIntervalArray = statistics.getConfidenceInterval(customConfidenceLevel);
+        customConfidenceIntervalLabel.setText("Confidence Interval (custom): " + format.format(customConfidenceIntervalArray[0]) + " - " +  format.format(customConfidenceIntervalArray[1]));
+        double[] customPredictiveConfidenceIntervalArray = statistics.getPredictionInterval(customPredictiveConfidenceLevel);
+        customPredictionIntervalLabel.setText("Prediction Interval (custom): " + format.format(customPredictiveConfidenceIntervalArray[0]) + " - " +  format.format(customPredictiveConfidenceIntervalArray[1]));
+        
+        //Message.
         errorLabel.setText("Statistics calculated.");
         System.out.println("Statistics calculated.");
+        
+        
+        
+        
+        double[] test = statistics.getConfidenceInterval(0.99);
+        System.out.println(test[0] + " " + test[1]);
+        test = statistics.getConfidenceInterval();
+        System.out.println(test[0] + " " + test[1]);
+        
+        test = statistics.getPredictionInterval(0.99);
+        System.out.println(test[0] + " " + test[1]);
+        test = statistics.getPredictionInterval();
+        System.out.println(test[0] + " " + test[1]);
     }
 }

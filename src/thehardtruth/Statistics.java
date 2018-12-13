@@ -62,7 +62,11 @@ public class Statistics {
         for (int i = 0; i < times.length; ++i) {
             statistics.addValue(times[i]);
         }
+        
+        tDistribution = new TDistribution(statistics.getN() - 1);
     }
+    
+    //Note: Limit calls to other methods in the Statistics class in a method that calculates values to isolate methods.
     
     /**
      * Returns a double representing the sample mean of the data.
@@ -93,7 +97,7 @@ public class Statistics {
      * @return returns a double representing the standard error of the mean of the data.
      */
     public double getSem() {
-        return Math.sqrt(statistics.getVariance()) / Math.sqrt(statistics.getN());
+        return Math.sqrt(statistics.getVariance() / statistics.getN());
     }
     
     /**
@@ -102,16 +106,16 @@ public class Statistics {
      * @return returns a double representing the t-value.
      */
     public double getTValue(double time) {
-        return (getMean() - time) / getSem();
+        return (time - statistics.getMean()) / Math.sqrt(statistics.getVariance() / statistics.getN());
     }
     
     /**
-     * Returns a double representing the p-value.
+     * Returns a double representing the p-value for the hypothesis that the "average" of the cuber is at least a given time.
      * @param time The time to test.
      * @return returns a double representing the p-value.
      */
     public double getPValue(double time) {
-        return 1 - tDistribution.cumulativeProbability(((getMean() - time) / getSem()));
+        return tDistribution.cumulativeProbability((time - statistics.getMean()) / Math.sqrt(statistics.getVariance() / statistics.getN()));
     }
     
     /**
@@ -124,7 +128,8 @@ public class Statistics {
      * false if it is not.
      */
     public boolean testAverage(double time, double levelOfSignificance) {
-        return  (1 - tDistribution.cumulativeProbability(((getMean() - time) / getSem()))) > levelOfSignificance;
+        double pValue = tDistribution.cumulativeProbability((time - statistics.getMean()) / Math.sqrt(statistics.getVariance() / statistics.getN()));
+        return  pValue < levelOfSignificance / 2 ? true : 1 - pValue < levelOfSignificance / 2;
     }
     
     /**
@@ -136,6 +141,52 @@ public class Statistics {
      * false if it is not.
      */
     public boolean testAverage(double time) {
-        return (1 - tDistribution.cumulativeProbability(((getMean() - time) / getSem()))) > 0.05;
+        double pValue = tDistribution.cumulativeProbability((time - statistics.getMean()) / Math.sqrt(statistics.getVariance() / statistics.getN()));
+        return  pValue < 0.025 ? true : 1 - pValue < 0.025;
+    }
+    
+    /**
+     * Returns an array representing the confidence interval at a 95% confidence level.
+     * To get confidence intervals at other confidence levels, use getConfidenceInterval(double confidenceLevel).
+     * @return returns an array with the first element representing the lower endpoint of the interval and the second element representing the upper endpoint of the interval.
+     */
+    public double[] getConfidenceInterval() {
+        //To minimise repeated calculations of the same expression, a variable was used.
+        double d = tDistribution.inverseCumulativeProbability(0.025) * Math.sqrt(statistics.getVariance() / statistics.getN());
+        return new double[]{statistics.getMean() + d, statistics.getMean() - d};
+    }
+    
+    /**
+     * Returns an array representing the confidence interval at a certain confidence level.
+     * @param confidenceLevel The desired level of confidence of the interval in decimal form.
+     * @return returns an array with the first element representing the lower endpoint of the interval and the second element representing the upper endpoint of the interval.
+     */
+    public double[] getConfidenceInterval(double confidenceLevel) {
+        //To minimise repeated calculations of the same expression, a variable was used.
+        double d = tDistribution.inverseCumulativeProbability((1 - confidenceLevel) / 2) * Math.sqrt(statistics.getVariance() / statistics.getN());
+        return new double[]{statistics.getMean() + d, statistics.getMean() - d};
+    }
+    
+    /**
+     * Returns an array representing the prediction interval at a 95% predictive confidence level.
+     * Note that this assumes that the distribution of times is normal.
+     * To get prediction intervals at other confidence levels, use getPredictionInterval(double predictiveConfidenceLevel).
+     * @return returns an array with the first element representing the lower endpoint of the interval and the second element representing the upper endpoint of the interval.
+     */
+    public double[] getPredictionInterval() {
+        //To minimise repeated calculations of the same expression, a variable was used.
+        double d = tDistribution.inverseCumulativeProbability(0.025) * Math.sqrt(statistics.getVariance() * (1 + 1.0 / statistics.getN()));
+        return new double[]{statistics.getMean() + d, statistics.getMean() - d};
+    }
+    /**
+     * Returns an array representing the prediction interval at a certain predictive confidence level.
+     * Note that this assumes that the distribution of times is normal.
+     * @param predictiveConfidenceLevel The desired predictive confidence level of the interval in decimal form.
+     * @return returns an array with the first element representing the lower endpoint of the interval and the second element representing the upper endpoint of the interval.
+     */
+    public double[] getPredictionInterval(double predictiveConfidenceLevel) {
+        //To minimise repeated calculations of the same expression, a variable was used.
+        double d = tDistribution.inverseCumulativeProbability((1 - predictiveConfidenceLevel) / 2) * Math.sqrt(statistics.getVariance() * (1 + 1.0 / statistics.getN()));
+        return new double[]{statistics.getMean() + d, statistics.getMean() - d};
     }
 }

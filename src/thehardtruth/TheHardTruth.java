@@ -250,7 +250,6 @@ public final class TheHardTruth extends JFrame {
         //To add timing functions.
         //Times are truncated instead of rounded per cubing norms
         //(cf. truncation of times produced by StackMat ProTimer Gen 3).
-        
         addKeyListener(new KeyAdapter() {
             private boolean isTiming = false;
             private boolean spaceStop = false;
@@ -365,28 +364,20 @@ public final class TheHardTruth extends JFrame {
         //Layout constraints for interval components.
         layout.putConstraint(SpringLayout.NORTH, confidenceIntervalLabel, 30, SpringLayout.SOUTH, pValueLabel);
         layout.putConstraint(SpringLayout.WEST, confidenceIntervalLabel, 5, SpringLayout.EAST, timeScrollPane);
-        
         layout.putConstraint(SpringLayout.NORTH, predictionIntervalLabel, 5, SpringLayout.SOUTH, confidenceIntervalLabel);
         layout.putConstraint(SpringLayout.WEST, predictionIntervalLabel, 5, SpringLayout.EAST, timeScrollPane);
-        
         layout.putConstraint(SpringLayout.NORTH, customConfidenceLevelLabel, 5, SpringLayout.SOUTH, predictionIntervalLabel);
         layout.putConstraint(SpringLayout.WEST, customConfidenceLevelLabel, 5, SpringLayout.EAST, timeScrollPane);
-        
         layout.putConstraint(SpringLayout.NORTH, customConfidenceLevelField, 3, SpringLayout.SOUTH, predictionIntervalLabel);
         layout.putConstraint(SpringLayout.WEST, customConfidenceLevelField, 3, SpringLayout.EAST, customConfidenceLevelLabel);
-        
         layout.putConstraint(SpringLayout.NORTH, customPredictiveConfidenceLevelLabel, 5, SpringLayout.SOUTH, customConfidenceLevelLabel);
         layout.putConstraint(SpringLayout.WEST, customPredictiveConfidenceLevelLabel, 5, SpringLayout.EAST, timeScrollPane);
-        
         layout.putConstraint(SpringLayout.NORTH, customPredictiveConfidenceLevelField, 3, SpringLayout.SOUTH, customConfidenceLevelLabel);
         layout.putConstraint(SpringLayout.WEST, customPredictiveConfidenceLevelField, 3, SpringLayout.EAST, customPredictiveConfidenceLevelLabel);
-        
         layout.putConstraint(SpringLayout.NORTH, customConfidenceIntervalLabel, 5, SpringLayout.SOUTH, customPredictiveConfidenceLevelLabel);
         layout.putConstraint(SpringLayout.WEST, customConfidenceIntervalLabel, 5, SpringLayout.EAST, timeScrollPane);
-        
         layout.putConstraint(SpringLayout.NORTH, customPredictionIntervalLabel, 5, SpringLayout.SOUTH, customConfidenceIntervalLabel);
         layout.putConstraint(SpringLayout.WEST, customPredictionIntervalLabel, 5, SpringLayout.EAST, timeScrollPane);
-        
         
         //Adding EventListeners.
         loadTimesButton.addActionListener((ActionEvent evt) -> {
@@ -439,7 +430,6 @@ public final class TheHardTruth extends JFrame {
         //Generate a solve before the frame is visible.
         generateSolve();
         setVisible(true);
-        
     }
     
     /**

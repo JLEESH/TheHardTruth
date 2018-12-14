@@ -14,19 +14,43 @@ The following change depending on user input:
 - Custom Confidence Interval
 - Custom Prediction Interval
 
+Here are some of the program's features, other than displaying the statistics above: 
+- Loading and saving times to a TSV file (without saving the scrambles as of now).
+- Adding/deleting/changing solve times.
+- Viewing scrambles for solves that were generated in the current session.
+- Random-state scrambles
+- Timer
+
 Note that v1.2 contains scrambler functions and may cause the application to lag at times.
 
-# The Truth to Mend All Truths
-This program was made to ~~end~~ provide another view point on the discussion surrounding cubing averages, namely what someone truly averages. Measures cubers typically use such as Mo3 (Mean of 3), Ao5 (Average of 5), Ao12 (what Ao stands for should be obvious by now), Ao50, Ao100 or even Ao1000, where the AoX, X being a certain number of solves, is computed by taking away the best and the worst solve (assuming one considers a faster solve a better one and a slower solve a worse one) in the session and deriving the mean of the remaining times after doing so, do not have a strong basis in statistics. In fact, different definitions exist for the higher numbers, such as taking away the fastest and the slowest 10% of the solves for longer (in terms of the number of solves) sessions.
+# Explanation for Non-cubers
+Speedcubing is a mind sport where cubers solve various twisty puzzles under a myriad of different conditions. The most common "events", as pre-definted sets of conditions under which someone completes a solve are typically called, involve solving a puzzle in the shortest time possible by twisting it (as opposed to, say, dismantling and assembling it). The times are then recorded and used to calculate a value akin to a score. The most common terms are as follows: 
+- Best of X: Take the best of X solves. Commonly used in blindfolded (BLD) events, where the cuber memorises then solves a puzzle blindfolded and has to balance speed and accuracy (since a single mistake can result in a Did Not Finish (DNF)).
+- Mean of X (MoX): Take the mean of X times. Mo3s are used in actual World Cube Association (WCA) competitions for events that take a considerable amount of time, such as 6x6, 7x7 (cube sizes are usually shortened from NxNxN to NxN) and Fewest Moves.
+- Average of X (AoX): Take away the fastest and the slowest solve, to reduce the effect a single good or bad solve can have, then take the statistical mean of the remaining solves. Ao5s are used in most events during WCA competitions, but cubers also use other common formats such as Ao12, Ao50, Ao100 and Ao1000 informally. For larger numbers, alternative definitions exist, where one takes away the fastest and the slowest 10% or so of the number of solves instead.
 
-Therefore, this program attempts to compute some numbers based not on arbitrary definitions coined by the speedcubing community but through statistics, in hopes of estimating an actual mean rather than misappropriating what should be applied in accomplishing a fun and/or challenging goal such as getting a pure sub-10 (meaning no solves taking 10s or longer) Ao1000 by using it as a measure of someone's average. Of course, assumptions and estimations are made: the program assumes that cubing times follow a normal distribution and uses the Student's t-distribution for many of its calculations, when in fact time distributions in speedcubing are more likely to be slightly skewed, since solving 5s faster than someone's average is typically less likely than solving 5s slower, given how mistakes can increase times drastically compared to the rare and occasionally unimpactful skips (literally the skipping of certain steps in solving a cube, the details of which depend on the solving method one uses) and lucky cases. However, as the t-distribution is robust to the normality assumption, in addition to the fact the distribution of cubing times are approximately normal in the first place, estimations should be a relatively decent.
+It should be apparent that none of the above metrics are truly statistically sound ways of measuring one's true "average", in a coloquial sense. However, the cubing community often engages in heated debates on what is a good way to measure one's average for a certain event. Some say Ao100s are sufficient, whereas others say only official solves should matter (and by others I mean a particular person on the Speedcubing forums).
+
+In fact, statistics are rarely used in cubing, despite obvious applications that can go beyond measuring one's average, such as calculating the likelihood of certain cases coming up during the solving process or deciding how fast one should go for BLD events based on previous success rates when going at certain speeds.
+
+Hence this program was made to provide a means for cubers to use statistics to their advantage to estimate their average or obtain other insights into their solving speeds.
+
+
+# The Truth to Mend All Truths
+This program was made to ~~end~~ provide another view point on the discussion surrounding cubing averages, namely what someone truly averages. Measures cubers typically use, such as Mo3, Ao5, Ao12, Ao50, Ao100 or even Ao1000, where the AoX, X being a certain number of solves, is computed by taking away the best and the worst solve (assuming one considers a faster solve a better one and a slower solve a worse one) in the session and deriving the mean of the remaining times after doing so, do not have a strong basis in statistics. Different definitions exist for higher numbers, such as taking away the fastest and the slowest 10% of the solves for longer (in terms of the number of solves) sessions instead.
+
+Therefore, this program attempts to compute some numbers based not on arbitrary definitions coined by the speedcubing community but on statistics, in hopes of estimating an actual mean rather than misappropriating what should be applied in accomplishing a fun and/or challenging goal, such as getting a pure sub-10 (meaning no solves taking 10s or longer) Ao1000, by using it as a measure of someone's average.
+
+Of course, assumptions and estimations are made: the program assumes that cubing times follow a normal distribution and uses the Student's t-distribution for many of its calculations, when in fact time distributions in speedcubing are more likely to be slightly skewed, since solving 5s faster than someone's average is typically less likely than solving 5s slower, given how mistakes can increase times drastically compared to the rare and occasionally unimpactful skips (literally the skipping of certain steps in solving a cube, the details of which depend on the solving method one uses) and lucky cases. In addition, cubers improve as they do more solves, so in a sense the events are not independent of each other in the long term.
+
+However, as the t-distribution is robust to the normality assumption, in addition to the fact the distribution of cubing times are approximately normal in the first place, estimations should be a relatively decent.
 
 # How It Was Made
 Java SE 8.0
 
 Apache Commons Math (under the Apache License, Version 2.0)
 
-Scrambler functions were added thanks to Herbert Kociemba's two-phase algorithm demonstration in Java.
+Scrambler functions were added thanks to Herbert Kociemba's two-phase algorithm demonstration in Java. The solver basically uses a two-phase algorithm, instead of using algorithms such as IDA*.
 http://kociemba.org/cube.htm
 
 *That's all folks!*
@@ -40,15 +64,18 @@ On Linux, run 'java -jar TheHardTruth.jar' in the 'dist' folder.
 
 Otherwise, ~~tough luck~~ please look up how to run jar files on your device.
 
-# Potential Future Functions and Unlikely Future Functions
-~~blatantly copied from the old README, then edited.~~
+# Potential Future Functions
+(To wit, a vision of the program, considering the program is technically a prototype.)
 
-Features yet to be implemented: 
+In addition to features already implemented: 
+- Graphs and charts for solves: Users will be able to view how their solve times fluctuate both on a per-solve basis (meaning the solves will be visualised sequentially) and what their time distribution looks like (visualisation of the deviation from the mean). Potential tools include JFreeCharts; images generated by JFreeCharts can be added on the application's screen.
+- Sorting of times: although not immediately useful, users may want to sort their times. Combined with the fact that this could facilitate the ease of visualisation, it may be a useful function to add.
+- Other forms of analysis: Success rates can used to estimate the likelihood of the number of successes for BLD using the binomial distribution. This can be useful for BLD solvers who want maintain a certain level of accuracy while trying to solve as fast as possible.
+- Better file data: Making full use of the Solve class and storing the data in each Solve object in an appropriate format, when all the fields are actively used in the full program.
+- Scramblers for multiple events or even subsets of the puzzles (for practising/analysing the speed of solving specific sections or steps).
+- Multiple concurrent windows/sessions.
 
-- Power of the test? (You can just test another specific alternative hypothesis with the current version)
-- Testing against hallmark values such as sub-10, sub-12, sub-15, etc. automatically. (I know, other values like sub-20 exist. Just listing examples. But I thought it would be too much clutter. And JLabels.)
-- Actually using the Solve class (and other classes too) to its full extent. (Might be useful for calculating DNF rates vs times for BLD (blindfolded solving) and the like)
-- Sorting, visulisation. (Doesn't make sense to have just sorting without visualisation, so I left it out. I guess I could use JFreeChart for that).
+In general, this program is meant to be a tool to relay cubers a more accurate representation of their solve times, success rates, consistency, etc. Although it was not meant to be a timer, timer functions have been added.
 
 # Changelog (since v1.2)
 

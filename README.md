@@ -45,6 +45,8 @@ Of course, assumptions and estimations are made: the program assumes that cubing
 
 However, as the t-distribution is robust to the normality assumption, in addition to the fact the distribution of cubing times are approximately normal in the first place, estimations should be a relatively decent.
 
+In addition, one can even calculate a range of values to predict what the timing for the next solve will be!
+
 # How It Was Made
 Java SE 8.0
 

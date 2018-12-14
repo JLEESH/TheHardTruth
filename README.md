@@ -1,4 +1,4 @@
-# TheHardTruth v1.1
+# TheHardTruth v1.2 (The Scrambler Update...?)
 TheHardTruth calculates some statistics based on solve times input by the user.
 Currently, the following information (or more) is displayed: 
 - Sample Mean
@@ -14,6 +14,8 @@ The following change depending on user input:
 - Custom Confidence Interval
 - Custom Prediction Interval
 
+Note that v1.2 contains scrambler functions and may cause the application to lag at times.
+
 # The Truth to Mend All Truths
 This program was made to ~~end~~ provide another view point on the discussion surrounding cubing averages, namely what someone truly averages. Measures cubers typically use such as Mo3 (Mean of 3), Ao5 (Average of 5), Ao12 (what Ao stands for should be obvious by now), Ao50, Ao100 or even Ao1000, where the AoX, X being a certain number of solves, is computed by taking away the best and the worst solve (assuming one considers a faster solve a better one and a slower solve a worse one) in the session and deriving the mean of the remaining times after doing so, do not have a strong basis in statistics. In fact, different definitions exist for the higher numbers, such as taking away the fastest and the slowest 10% of the solves for longer (in terms of the number of solves) sessions.
 
@@ -23,6 +25,9 @@ Therefore, this program attempts to compute some numbers based not on arbitrary 
 Java SE 8.0
 
 Apache Commons Math (under the Apache License, Version 2.0)
+
+Scrambler functions were added thanks to Herbert Kociemba's two-phase algorithm demonstration in Java.
+http://kociemba.org/cube.htm
 
 *That's all folks!*
 
@@ -38,13 +43,22 @@ Otherwise, ~~tough luck~~ please look up how to run jar files on your device.
 # Potential Future Functions and Unlikely Future Functions
 ~~blatantly copied from the old README, then edited.~~
 
-Features yet to be implemented (since it's a prototype): 
+Features yet to be implemented: 
 
 - Power of the test? (You can just test another specific alternative hypothesis with the current version)
 - Testing against hallmark values such as sub-10, sub-12, sub-15, etc. automatically. (I know, other values like sub-20 exist. Just listing examples. But I thought it would be too much clutter. And JLabels.)
 - Actually using the Solve class (and other classes too) to its full extent. (Might be useful for calculating DNF rates vs times for BLD (blindfolded solving) and the like)
-- (Random state) scrambles (for multiple events, but this program was not meant to be a full-fledged timer).
 - Sorting, visulisation. (Doesn't make sense to have just sorting without visualisation, so I left it out. I guess I could use JFreeChart for that).
+
+# Changelog (since v1.2)
+
+- v1.2
+  - Added scrambler functions. You can view the scrambles of the solves done during the current session of the program. Thank you to Herbert Kociemba for making the demonstration available!
+- v1.1
+  - Added different types of intervals.
+- v1.1
+  - Initial commit.
+
 
 ## The Old README.md
 ### (v1.0 or v0.1, depending on how you look at it)

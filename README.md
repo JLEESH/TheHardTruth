@@ -60,11 +60,11 @@ http://kociemba.org/cube.htm
 # How to Run the Program
 Under most conditions, the following should suffice: 
 
-On Windows, simply double-click 'TheHardTruth.jar' in the 'dist' folder.
-
-On Linux, run 'java -jar TheHardTruth.jar' in the 'dist' folder.
-
+On Windows, simply double-click `TheHardTruth.jar` in the `dist` folder.
+On Linux, run `java -jar TheHardTruth.jar` in the `dist` folder.
 Otherwise, ~~tough luck~~ please look up how to run jar files on your device.
+
+A file containing some times I had lying around of some solves I did back in June/July 2014 was added for illustration. Click on 'Load Times' and look for the file in the relevant directories for an example on how the program functions.
 
 # Potential Future Functions
 (To wit, a vision of the program, considering the program is technically a prototype.)

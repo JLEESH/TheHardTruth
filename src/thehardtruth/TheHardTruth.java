@@ -54,7 +54,7 @@ import org.kociemba.twophase.Tools;
  */
 public final class TheHardTruth extends JFrame {
     private static final int FRAME_HEIGHT = 600;
-    private static final int FRAME_WIDTH = 700;
+    private static final int FRAME_WIDTH = 800;
     private static final String FRAME_TITLE = "The Hard Truth";
     private static final int LIST_HEIGHT = 400;
     private static final int LIST_WIDTH = 200;
@@ -764,7 +764,7 @@ public final class TheHardTruth extends JFrame {
     
     public void generateSolve() {
         String scramble = new Search().solution(new Tools().randomCube(), 20, 10, false);
-        scrambleLabel.setText("Scramble: \n" + scramble);
+        scrambleLabel.setText("Scramble: " + scramble);
         scrambleStore = scramble;
     }
 }

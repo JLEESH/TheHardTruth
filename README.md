@@ -6,7 +6,7 @@ Currently, the following information (or more) is displayed:
 - Sample Standard Deviation
 - Standard Error of Mean
 - Confidence Interval (at 95% confidence level)
-- Predicton Interval (at 95% predictive confidence level)
+- Prediction Interval (at 95% predictive confidence level)
 
 The following change depending on user input:
 - The *t* Value
@@ -24,12 +24,12 @@ Here are some of the program's features, other than displaying the statistics ab
 Note that v1.2 contains scrambler functions and may cause the application to lag at times.
 
 # Explanation for Non-cubers
-Speedcubing is a mind sport where cubers solve various twisty puzzles under a myriad of different conditions. The most common "events", as pre-definted sets of conditions under which someone completes a solve are typically called, involve solving a puzzle in the shortest time possible by twisting it (as opposed to, say, dismantling and assembling it). The times are then recorded and used to calculate a value akin to a score. The most common terms are as follows: 
+Speedcubing is a mind sport where cubers solve various twisty puzzles under a myriad of different conditions. The most common "events", as pre-defined sets of conditions under which someone completes a solve are typically called, involve solving a puzzle in the shortest time possible by twisting it (as opposed to, say, dismantling and assembling it). The times are then recorded and used to calculate a value akin to a score. The most common terms are as follows: 
 - Best of X: Take the best of X solves. Commonly used in blindfolded (BLD) events, where the cuber memorises then solves a puzzle blindfolded and has to balance speed and accuracy (since a single mistake can result in a Did Not Finish (DNF)).
 - Mean of X (MoX): Take the mean of X times. Mo3s are used in actual World Cube Association (WCA) competitions for events that take a considerable amount of time, such as 6x6, 7x7 (cube sizes are usually shortened from NxNxN to NxN) and Fewest Moves.
 - Average of X (AoX): Take away the fastest and the slowest solve, to reduce the effect a single good or bad solve can have, then take the statistical mean of the remaining solves. Ao5s are used in most events during WCA competitions, but cubers also use other common formats such as Ao12, Ao50, Ao100 and Ao1000 informally. For larger numbers, alternative definitions exist, where one takes away the fastest and the slowest 10% or so of the number of solves instead.
 
-It should be apparent that none of the above metrics are truly statistically sound ways of measuring one's true "average", in a coloquial sense. However, the cubing community often engages in heated debates on what is a good way to measure one's average for a certain event. Some say Ao100s are sufficient, whereas others say only official solves should matter (and by others I mean a particular person on the Speedcubing forums).
+It should be apparent that none of the above metrics are truly statistically sound ways of measuring one's true "average", in a colloquial sense. However, the cubing community often engages in heated debates on what is a good way to measure one's average for a certain event. Some say Ao100s are sufficient, whereas others say only official solves should matter (and by others I mean a particular person on the Speedcubing forums).
 
 In fact, statistics are rarely used in cubing, despite obvious applications that can go beyond measuring one's average, such as calculating the likelihood of certain cases coming up during the solving process or deciding how fast one should go for BLD events based on previous success rates when going at certain speeds.
 

@@ -114,12 +114,12 @@ Currently the program allows you to test if your hypotheses about your average s
 The program should be easy to navigate. What you see is what you get; trying out the program will probably give you a better understanding of what the program is than further explanations. However, if you do not understand what those values represent, it might help to open up your nearest Statistics textbook.
 
 Features yet to be implemented (since it's a prototype): 
--Providing the user with information related to the confidence interval, tolerance interval and prediction interval (Eh, easy peasy lemon squeezy, I just got sick of adding JLabels-y).
--Power of the test? (You can just test another specific alternative hypothesis with the current version)
--Testing against hallmark values such as sub-10, sub-12, sub-15, etc. automatically. (I know, other values like sub-20 exist. Just listing examples. But I thought it would be too much clutter. And JLabels.)
--Actually using the Solve class (and other classes too) to its full extent. (Might be useful for calculating DNF rates vs times for BLD (blindfolded solving) and the like)
--(Random state) scrambles (for multiple events, but this program was not meant to be a full-fledged timer).
--Sorting, visulisation. (Doesn't make sense to have just sorting without visualisation, so I left it out. I guess I could use JFreeChart for that).
+- Providing the user with information related to the confidence interval, tolerance interval and prediction interval (Eh, easy peasy lemon squeezy, I just got sick of adding JLabels-y).
+- Power of the test? (You can just test another specific alternative hypothesis with the current version)
+- Testing against hallmark values such as sub-10, sub-12, sub-15, etc. automatically. (I know, other values like sub-20 exist. Just listing examples. But I thought it would be too much clutter. And JLabels.)
+- Actually using the Solve class (and other classes too) to its full extent. (Might be useful for calculating DNF rates vs times for BLD (blindfolded solving) and the like)
+- (Random state) scrambles (for multiple events, but this program was not meant to be a full-fledged timer).
+- Sorting, visualisation. (Doesn't make sense to have just sorting without visualisation, so I left it out. I guess I could use JFreeChart for that).
 
 Notes: 
 Some of the code is unnecessary but it was left in since it might be used in the future anyway and the impact it makes is negligible.

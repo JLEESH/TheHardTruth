@@ -97,7 +97,7 @@ In general, this program is meant to be a tool to relay cubers a more accurate r
   - Added scrambler functions. You can view the scrambles of the solves done during the current session of the program. Thank you to Herbert Kociemba for making the demonstration available!
 - v1.1
   - Added different types of intervals.
-- v1.1
+- v1.0
   - Initial commit.
 
 

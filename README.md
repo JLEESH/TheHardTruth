@@ -1,4 +1,6 @@
 # TheHardTruth v1.1
+(Note: Refer to the Scramble branch for scrambler functions.)
+
 TheHardTruth calculates some statistics based on solve times input by the user.
 Currently, the following information (or more) is displayed: 
 - Sample Mean

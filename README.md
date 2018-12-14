@@ -41,7 +41,10 @@ https://alg.cubing.net/
 
 For example: 
 D' R' L D L2 B' D2 R L D2 R' B2 R2 B2 D F2 D' R2 F2 U2 
+
 https://alg.cubing.net/?alg=D-_R-_L_D_L2_B-_D2_R_L_D2_R-_B2_R2_B2_D_F2_D-_R2_F2_U2_
+
+Basically, a cuber would apply these moves to a cube, then time how long he or she takes to restore it back to the solved state. This removes the biases hand-scrambling a cube would have and ensures that the cuber solves a random state of the cube.
 
 # The Truth to Mend All Truths
 This program was made to ~~end~~ provide another view point on the discussion surrounding cubing averages, namely what someone truly averages. Measures cubers typically use, such as Mo3, Ao5, Ao12, Ao50, Ao100 or even Ao1000, where the AoX, X being a certain number of solves, is computed by taking away the best and the worst solve (assuming one considers a faster solve a better one and a slower solve a worse one) in the session and deriving the mean of the remaining times after doing so, do not have a strong basis in statistics. Different definitions exist for higher numbers, such as taking away the fastest and the slowest 10% of the solves for longer (in terms of the number of solves) sessions instead.

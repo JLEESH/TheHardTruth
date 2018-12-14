@@ -46,13 +46,15 @@ import javax.swing.SpringLayout;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
+import org.kociemba.twophase.Search;
+import org.kociemba.twophase.Tools;
 
 /**
  * The main frame of the application.
  */
 public final class TheHardTruth extends JFrame {
     private static final int FRAME_HEIGHT = 600;
-    private static final int FRAME_WIDTH = 600;
+    private static final int FRAME_WIDTH = 700;
     private static final String FRAME_TITLE = "The Hard Truth";
     private static final int LIST_HEIGHT = 400;
     private static final int LIST_WIDTH = 200;
@@ -68,6 +70,7 @@ public final class TheHardTruth extends JFrame {
     private double testTime;
     private double customConfidenceLevel;
     private double customPredictiveConfidenceLevel;
+    private String scrambleStore;
     
     private JLabel timeLabel;
     private JLabel errorLabel;
@@ -84,6 +87,8 @@ public final class TheHardTruth extends JFrame {
     //Solve components.
     private JLabel timeEditLabel;
     private JFormattedTextField timeEditField;
+    private JLabel currentScrambleLabel;
+    private JLabel scrambleLabel;
     private JLabel timeTakenLabel;
     private JFormattedTextField timeTakenField;
     private JLabel timeMeasureLabel;
@@ -141,6 +146,8 @@ public final class TheHardTruth extends JFrame {
         //Initialising Solve components.
         timeEditLabel = new JLabel("Solve Time: ");
         timeEditField = new JFormattedTextField(format);
+        currentScrambleLabel = new JLabel("Solve Scramble: ");
+        scrambleLabel = new JLabel("Scramble: ");
         timeTakenLabel = new JLabel("Time taken: ");
         timeTakenField = new JFormattedTextField(format);
         timeMeasureLabel = new JLabel("Press space to start timing.");//Timer begins when the spacebar is released.
@@ -199,7 +206,9 @@ public final class TheHardTruth extends JFrame {
         
         //Adding Solve components.
         add(timeEditLabel);
+        add(currentScrambleLabel);
         add(timeEditField);
+        add(scrambleLabel);
         add(timeTakenLabel);
         add(timeTakenField);
         add(timeMeasureLabel);
@@ -241,6 +250,7 @@ public final class TheHardTruth extends JFrame {
         //To add timing functions.
         //Times are truncated instead of rounded per cubing norms
         //(cf. truncation of times produced by StackMat ProTimer Gen 3).
+        
         addKeyListener(new KeyAdapter() {
             private boolean isTiming = false;
             private boolean spaceStop = false;
@@ -277,7 +287,12 @@ public final class TheHardTruth extends JFrame {
                     isTiming = false;
                     
                     timeTakenField.setText(format.format(timeTaken));
-                    solveHandler.addSolve(new Solve(timeTaken));
+                    if (scrambleStore != null) {
+                        solveHandler.addSolve(new Solve(timeTaken, scrambleStore));
+                    } else {
+                        solveHandler.addSolve(new Solve(timeTaken));
+                    }
+                    scrambleStore = null;
                     times.addElement(format.format(timeTaken));
                     
                     refreshStats();
@@ -288,6 +303,8 @@ public final class TheHardTruth extends JFrame {
                     if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                         spaceStop = true;
                     }
+                    
+                    generateSolve();
                 }
             }
         });
@@ -317,13 +334,16 @@ public final class TheHardTruth extends JFrame {
         layout.putConstraint(SpringLayout.WEST, timeEditLabel, 5, SpringLayout.EAST, timeScrollPane);
         layout.putConstraint(SpringLayout.NORTH, timeEditField, 3, SpringLayout.NORTH, timeScrollPane);
         layout.putConstraint(SpringLayout.WEST, timeEditField, 3, SpringLayout.EAST, timeEditLabel);
+        layout.putConstraint(SpringLayout.NORTH, currentScrambleLabel, 5, SpringLayout.SOUTH, addTimeButton);
+        layout.putConstraint(SpringLayout.WEST, currentScrambleLabel, 5, SpringLayout.EAST, timeScrollPane);
+        layout.putConstraint(SpringLayout.NORTH, scrambleLabel, -20, SpringLayout.NORTH, timeTakenLabel);
         layout.putConstraint(SpringLayout.NORTH, timeTakenLabel, 100, SpringLayout.SOUTH, loadTimesButton);
         layout.putConstraint(SpringLayout.NORTH, timeTakenField, 100 - 3, SpringLayout.SOUTH, loadTimesButton);
         layout.putConstraint(SpringLayout.WEST, timeTakenField, 3, SpringLayout.EAST, timeTakenLabel);
         layout.putConstraint(SpringLayout.NORTH, timeMeasureLabel, 5, SpringLayout.SOUTH, timeTakenLabel);
         
         //Layout constraints for statistics components.
-        layout.putConstraint(SpringLayout.NORTH, sampleSizeLabel, 30, SpringLayout.SOUTH, addTimeButton);
+        layout.putConstraint(SpringLayout.NORTH, sampleSizeLabel, 30, SpringLayout.SOUTH, currentScrambleLabel);
         layout.putConstraint(SpringLayout.WEST, sampleSizeLabel, 5, SpringLayout.EAST, timeScrollPane);
         layout.putConstraint(SpringLayout.NORTH, sampleMeanLabel, 5, SpringLayout.SOUTH, sampleSizeLabel);
         layout.putConstraint(SpringLayout.WEST, sampleMeanLabel, 5, SpringLayout.EAST, timeScrollPane);
@@ -403,6 +423,7 @@ public final class TheHardTruth extends JFrame {
                 if (timeIndex != -1) {
                     System.out.println(format.format(solveHandler.getSolve(timeIndex).getTime()) + " selected.");
                     timeEditField.setText(format.format(solveHandler.getSolve(timeIndex).getTime()));
+                    currentScrambleLabel.setText("Solve Scramble: " + solveHandler.getSolve(timeIndex).getScramble());
                 }
             }
         });
@@ -415,7 +436,10 @@ public final class TheHardTruth extends JFrame {
      * Starts up the frame.
      */
     public void startFrame() {
+        //Generate a solve before the frame is visible.
+        generateSolve();
         setVisible(true);
+        
     }
     
     /**
@@ -736,5 +760,11 @@ public final class TheHardTruth extends JFrame {
         //Message.
         errorLabel.setText("Statistics calculated.");
         System.out.println("Statistics calculated.");
+    }
+    
+    public void generateSolve() {
+        String scramble = new Search().solution(new Tools().randomCube(), 20, 10, false);
+        scrambleLabel.setText("Scramble: \n" + scramble);
+        scrambleStore = scramble;
     }
 }

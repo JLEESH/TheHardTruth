@@ -31,7 +31,7 @@ Speedcubing is a mind sport where cubers solve various twisty puzzles under a my
 
 It should be apparent that none of the above metrics are truly statistically sound ways of measuring one's true "average", in a colloquial sense. However, the cubing community often engages in heated debates on what is a good way to measure one's average for a certain event. Some say Ao100s are sufficient, whereas others say only official solves should matter (and by others I mean a particular person on the Speedcubing forums).
 
-In fact, statistics are rarely used in cubing, despite obvious applications that can go beyond measuring one's average, such as calculating the likelihood of certain cases coming up during the solving process or deciding how fast one should go for BLD events based on previous success rates when going at certain speeds.
+In fact, statistics is rarely used in cubing, despite obvious applications that can go beyond measuring one's average, such as calculating the likelihood of certain cases coming up during the solving process or deciding how fast one should go for BLD events based on previous success rates when going at certain speeds.
 
 Hence this program was made to provide a means for cubers to use statistics to their advantage to estimate their average or obtain other insights into their solving speeds.
 
